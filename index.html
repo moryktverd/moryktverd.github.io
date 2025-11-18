@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Мой сайт-визитка - Алексей Зарецкий</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: white;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://placehold.co/1920x1080/1e3c72/ffffff?text=Neural+Network+Background');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.15;
+            z-index: -1;
+            filter: blur(2px);
+        }
+        
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 0 10px;
+        }
+        
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.5);
+            margin: 0 auto 1.5rem;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .section {
+            padding: 60px 20px;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            border-radius: 2px;
+        }
+        
+        .card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .skill-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 4px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            border-radius: 4px;
+            transition: width 1s ease-in-out;
+        }
+        
+        .project-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: transform 0.3s ease;
+            margin-bottom: 1.5rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            color: white;
+        }
+        
+        .btn-outline {
+            border-color: rgba(255,255,255,0.5);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .nav-link {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            transform: translateY(-3px);
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6);
+            background: linear-gradient(90deg, #ffffff, #e6e6e6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            font-size: 2.5rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: rgba(255,255,255, 0.95);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+        }
+        
+        .code-effect {
+            font-family: 'Courier New', Courier, monospace;
+            background: rgba(255,255,255, 0.2);
+            padding: 6px 12px;
+            border-radius: 15px;
+            display: inline-block;
+            margin: 1rem 0;
+            border: 1px solid rgba(255,255,255, 0.3);
+            font-size: 1rem;
+            animation: typing 3s steps(30) 1s 1 normal both;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255,255,255, 0.3);
+            animation: float 8s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 1rem 0;
+        }
+        
+        .tech-tag {
+            background: rgba(30, 60, 114, 0.3);
+            color: #87ceeb;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(30, 60, 114, 0.5);
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: rgba(255,255,255, 0.2);
+            border-radius: 10px;
+            border-left: 3px solid #1e3c72;
+            transition: transform 0.3s ease;
+            color: white;
+        }
+        
+        .contact-item:hover {
+            transform: translateX(5px);
+            background: rgba(255,255,255, 0.25);
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(30, 60, 114, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #87ceeb;
+            font-size: 1.1rem;
+            border: 1px solid rgba(30, 60, 114, 0.5);
+        }
+        
+        .phone-number {
+            font-weight: 600;
+            color: #87ceeb;
+            font-size: 1rem;
+            text-shadow: 0 0 5px rgba(135, 206, 235, 0.3);
+        }
+        
+        .email-address {
+            font-weight: 600;
+            color: #87ceeb;
+            font-size: 0.9rem;
+            text-shadow: 0 0 5px rgba(135, 206, 235, 0.3);
+            word-break: break-all;
+        }
+        
+        .contact-text {
+            color: rgba(255,255,255, 0.95);
+            font-size: 1rem;
+        }
+        
+        /* Мобильная навигация */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 60, 114, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .mobile-menu.active {
+            display: flex;
+        }
+        
+        .mobile-menu .nav-link {
+            font-size: 1.2rem;
+            padding: 1rem;
+        }
+        
+        .mobile-menu-btn {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1001;
+            background: rgba(30, 60, 114, 0.8);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            font-size: 1.5rem;
+        }
+        
+        /* Скрытие скроллбара для мобильных устройств */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Адаптивные стили */
+        @media (min-width: 768px) {
+            .profile-img {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .glow-text {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content {
+                padding: 0 20px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .profile-img {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .glow-text {
+                font-size: 4rem;
+            }
+            
+            .subtitle {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Эффект нейросети на фоне */
+        .neural-network-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.05;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(135, 206, 235, 0.8) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(42, 82, 152, 0.8) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(30, 60, 114, 0.8) 0%, transparent 50%);
+            animation: neuralPulse 4s ease-in-out infinite alternate;
+        }
+        
+        @keyframes neuralPulse {
+            0% { opacity: 0.05; }
+            100% { opacity: 0.08; }
+        }
+        
+        /* VK Button */
+        .vk-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: #45669e;
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(69, 102, 158, 0.3);
+        }
+        
+        .vk-button:hover {
+            background: #3a5785;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(69, 102, 158, 0.4);
+        }
+        
+        .vk-icon {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #45669e;
+            font-weight: bold;
+        }
+        
+        .project-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+        }
+        
+        .project-links {
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .project-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+            font-size: 0.85rem;
+            color: rgba(255,255,255, 0.7);
+        }
+        
+        .project-date {
+            color: #87ceeb;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- Фон нейросети -->
+    <div class="neural-network-bg"></div>
+    <div class="background-image"></div>
+
+    <!-- Мобильное меню -->
+    <button class="mobile-menu-btn md:hidden" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home" class="nav-link" onclick="closeMobileMenu()">Главная</a>
+        <a href="#about" class="nav-link" onclick="closeMobileMenu()">Обо мне</a>
+        <a href="#skills" class="nav-link" onclick="closeMobileMenu()">Навыки</a>
+        <a href="#projects" class="nav-link" onclick="closeMobileMenu()">Проекты</a>
+        <a href="#contact" class="nav-link" onclick="closeMobileMenu()">Контакты</a>
+    </div>
+
+    <!-- Навигация -->
+    <nav class="fixed top-0 w-full bg-black bg-opacity-30 backdrop-blur-lg z-50 border-b border-white border-opacity-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-xl font-bold">
+                    <i class="fas fa-code text-blue-300"></i> Алексей
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="nav-link active">Главная</a>
+                    <a href="#about" class="nav-link">Обо мне</a>
+                    <a href="#skills" class="nav-link">Навыки</a>
+                    <a href="#projects" class="nav-link">Проекты</a>
+                    <a href="#contact" class="nav-link">Контакты</a>
+                </div>
+                <button class="md:hidden text-white">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Главная секция -->
+    <section id="home" class="hero-section">
+        <div class="particles" id="particles"></div>
+        <div class="hero-content">
+            <img src="https://placehold.co/300x300/1e3c72/ffffff?text=Алексей" alt="Профиль" class="profile-img floating">
+            <h1 class="glow-text">Алексей Зарецкий</h1>
+            <p class="subtitle">Кодер, создающий цифровые чудеса</p>
+            <div class="code-effect">console.log("Здравствуйте!");</div>
+            <p class="text-lg text-gray-100 mb-6 leading-relaxed">
+                Я превращаю идеи в функциональные веб-решения. 
+                Каждый байт моего кода — это шаг к созданию чего-то выдающегося.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="#projects" class="btn btn-primary">
+                    <i class="fas fa-code mr-2"></i>Проекты
+                </a>
+                <a href="#contact" class="btn btn-outline">
+                    <i class="fas fa-envelope mr-2"></i>Контакты
+                </a>
+                <a href="https://vk.com/moryktverd" target="_blank" class="vk-button mt-4">
+                    <span class="vk-icon">В</span>ВКонтакте
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Обо мне -->
+    <section id="about" class="section bg-black bg-opacity-20">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="section-title">Обо мне</h2>
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-300 mb-3">Кодер с душой</h3>
+                    <p class="text-base text-gray-100 mb-4 leading-relaxed">
+                        Меня зовут Алексей Зарецкий — я создаю цифровые миры, где технологии становятся искусством. 
+                        Каждый проект — это история, которую я пишу с помощью JavaScript, React и любви к деталям.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="text-center p-3 bg-white bg-opacity-20 rounded-lg">
+                            <div class="text-xl font-bold text-blue-300">5+</div>
+                            <div class="text-sm text-gray-200">Лет опыта</div>
+                        </div>
+                        <div class="text-center p-3 bg-white bg-opacity-20 rounded-lg">
+                            <div class="text-xl font-bold text-blue-300">50+</div>
+                            <div class="text-sm text-gray-200">Проектов</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="card">
+                        <i class="fas fa-laptop-code text-2xl text-blue-300 mb-2"></i>
+                        <h4 class="text-lg font-semibold mb-1">Frontend Development</h4>
+                        <p class="text-sm text-gray-200">React, Vue.js, TypeScript, Tailwind CSS</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-server text-2xl text-blue-300 mb-2"></i>
+                        <h4 class="text-lg font-semibold mb-1">Backend Development</h4>
+                        <p class="text-sm text-gray-200">Node.js, Python, Express, MongoDB</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-paint-brush text-2xl text-blue-300 mb-2"></i>
+                        <h4 class="text-lg font-semibold mb-1">UI/UX Design</h4>
+                        <p class="text-sm text-gray-200">Figma, Adobe Creative Suite, Prototyping</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Навыки -->
+    <section id="skills" class="section">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="section-title">Навыки</h2>
+            <div class="space-y-4">
+                <div class="card">
+                    <h3 class="text-lg font-semibold mb-3">Frontend Technologies</h3>
+                    <div class="mb-3">
+                        <div class="flex justify-between mb-1">
+                            <span>JavaScript</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="flex justify-between mb-1">
+                            <span>React</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="flex justify-between mb-1">
+                            <span>HTML/CSS</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="text-lg font-semibold mb-3">Backend Technologies</h3>
+                    <div class="mb-3">
+                        <div class="flex justify-between mb-1">
+                            <span>Node.js</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="flex justify-between mb-1">
+                            <span>Python</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="flex justify-between mb-1">
+                            <span>MongoDB</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Проекты -->
+    <section id="projects" class="section bg-black bg-opacity-20">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="section-title">Мои Проекты</h2>
+            <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Проект 1: AI Art Generator -->
+                <div class="project-card">
+                    <img src="https://placehold.co/400x250/1e3c72/ffffff?text=AI+Art+Generator" alt="AI Art Generator" class="project-image">
+                    <div class="project-content">
+                        <h3 class="text-xl font-semibold mb-2">AI Art Generator</h3>
+                        <p class="text-sm text-gray-200 mb-3">
+                            Инновационное веб-приложение для генерации уникальных произведений искусства с помощью искусственного интеллекта. 
+                            Пользователи могут создавать визуальные шедевры, просто описывая свои идеи.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">TensorFlow.js</span>
+                            <span class="tech-tag">Canvas API</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Express</span>
+                        </div>
+                        <div class="project-stats">
+                            <span class="project-date">2024</span>
+                            <span>100K+ генераций</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="text-blue-300 hover:text-blue-200 transition-colors inline-flex items-center text-sm">
+                                <i class="fas fa-external-link-alt mr-2"></i>Посмотреть проект
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Проект 2: Virtual Reality Museum -->
+                <div class="project-card">
+                    <img src="https://placehold.co/400x250/2a5298/ffffff?text=VR+Museum" alt="Virtual Reality Museum" class="project-image">
+                    <div class="project-content">
+                        <h3 class="text-xl font-semibold mb-2">Virtual Reality Museum</h3>
+                        <p class="text-sm text-gray-200 mb-3">
+                            Иммерсивный виртуальный музей, где пользователи могут исследовать экспонаты в 3D пространстве. 
+                            Реализовано с использованием WebGL и AR/VR технологий для захватывающего пользовательского опыта.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Three.js</span>
+                            <span class="tech-tag">WebGL</span>
+                            <span class="tech-tag">A-Frame</span>
+                            <span class="tech-tag">WebXR</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                        <div class="project-stats">
+                            <span class="project-date">2023</span>
+                            <span>50K+ посещений</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="text-blue-300 hover:text-blue-200 transition-colors inline-flex items-center text-sm">
+                                <i class="fas fa-external-link-alt mr-2"></i>Посмотреть проект
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Проект 3: Blockchain Voting System -->
+                <div class="project-card">
+                    <img src="https://placehold.co/400x250/1e3c72/ffffff?text=Blockchain+Voting" alt="Blockchain Voting System" class="project-image">
+                    <div class="project-content">
+                        <h3 class="text-xl font-semibold mb-2">Blockchain Voting System</h3>
+                        <p class="text-sm text-gray-200 mb-3">
+                            Безопасная система голосования на основе блокчейн-технологии, обеспечивающая прозрачность, 
+                            неизменяемость и анонимность голосов. Реализована с использованием смарт-контрактов.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Solidity</span>
+                            <span class="tech-tag">Ethereum</span>
+                            <span class="tech-tag">Web3.js</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">IPFS</span>
+                        </div>
+                        <div class="project-stats">
+                            <span class="project-date">2024</span>
+                            <span>10K+ голосов</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="text-blue-300 hover:text-blue-200 transition-colors inline-flex items-center text-sm">
+                                <i class="fas fa-external-link-alt mr-2"></i>Посмотреть проект
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact" class="section">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="section-title">Связаться со мной</h2>
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-blue-300">Давайте создадим что-то потрясающее!</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <span class="email-address">moryktverd@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <span class="phone-number">+7 (930) 161-67-17</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <span class="contact-text">Москва, Россия</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-center space-x-4">
+                        <a href="https://vk.com/moryktverd" target="_blank" class="vk-button">
+                            <span class="vk-icon">В</span>ВКонтакте
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                <form class="space-y-4">
+                    <div>
+                        <input type="text" placeholder="Ваше имя" class="w-full px-3 py-2 bg-white bg-opacity-20 border border-white border-opacity-40 rounded-lg text-white placeholder-gray-300 focus:outline-none focus:border-blue-300 transition-colors text-sm">
+                    </div>
+                    <div>
+                        <input type="email" placeholder="Ваш email" class="w-full px-3 py-2 bg-white bg-opacity-20 border border-white border-opacity-40 rounded-lg text-white placeholder-gray-300 focus:outline-none focus:border-blue-300 transition-colors text-sm">
+                    </div>
+                    <div>
+                        <textarea rows="4" placeholder="Ваше сообщение" class="w-full px-3 py-2 bg-white bg-opacity-20 border border-white border-opacity-40 rounded-lg text-white placeholder-gray-300 focus:outline-none focus:border-blue-300 transition-colors resize-none text-sm"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full">
+                        <i class="fas fa-paper-plane mr-2"></i>Отправить
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="py-6 border-t border-white border-opacity-30">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-gray-300 text-sm">
+                © 2025 Алексей Зарецкий. Создаю цифровую реальность.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Создание частиц
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.animationDuration = `${3 + Math.random() * 7}s`;
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            particle.style.opacity = `${0.2 + Math.random() * 0.3}`;
+            particle.style.width = `${2 + Math.random() * 6}px`;
+            particle.style.height = particle.style.width;
+            particlesContainer.appendChild(particle);
+        }
+
+        // Мобильное меню
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+        });
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+        }
+
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+                closeMobileMenu();
+            });
+        });
+
+        // Анимация навыков при скролле
+        const skillBars = document.querySelectorAll('.skill-progress');
+        
+        const animateSkills = () => {
+            skillBars.forEach(bar => {
+                const parent = bar.parentElement.parentElement;
+                const rect = parent.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+                
+                if (isVisible) {
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateSkills);
+        window.addEventListener('load', animateSkills);
+
+        // Активация навигации при скролле
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Предотвращение прокрутки при открытии мобильного меню
+        mobileMenu.addEventListener('touchstart', function(e) {
+            e.stopPropagation();
+        });
+
+        // Закрытие мобильного меню при клике вне его
+        document.addEventListener('click', function(e) {
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
+
